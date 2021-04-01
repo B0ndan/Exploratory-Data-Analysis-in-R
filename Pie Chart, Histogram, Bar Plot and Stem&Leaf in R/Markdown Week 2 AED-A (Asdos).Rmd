@@ -1,0 +1,95 @@
+---
+title: "Week 2 AED Markdown (Asdos)"
+author: "Assistant Lecturer-A(Bondan and Kevin)"
+date: "3/16/2021"
+output: html_document
+---
+
+# Bonjour! AED-A Class
+## Dipelajari YA!!!
+
+```{r}
+getwd()
+setwd("C:/Users/bonda/OneDrive/Documents/MATKUL STATISTIK/Asdos AED Materi/Week 2")
+```
+
+## 1. Pie Chart
+In R the pie chart is created using the pie() function which takes positive numbers as a vector input. The additional parameters are used to control labels, color, title etc.
+
+###Syntax
+```
+pie(x, labels, radius, main, col, clockwise)
+```
+
+Following is the description of the parameters used −
+
+* x is a vector containing the numeric values used in the pie chart.
+
+* labels is used to give description to the slices.
+
+* radius indicates the radius of the circle of the pie chart.(value between −1 and +1).
+
+* main indicates the title of the chart.
+
+* col indicates the color palette.
+
+ *clockwise is a logical value indicating if the slices are drawn clockwise or anti clockwise.
+
+#### Simple Pie Chart
+```{r}
+slices <- c(10, 12,4, 16, 8)
+lbls <- c("US", "UK", "Australia", "Germany", "France")
+pie(slices, labels = lbls, main="Pie Chart of Countries")
+```
+#### How To Set Specific Color in Pie Chart
+I want to give colors to the piechart. I used. I want to give red color for apple, orange color for orange and blue color for grape etc. But my pie chart looks different.
+
+```{r}
+chem <- c("Apel","Jeruk","Anggur Merah","Pisang","Kedondong")
+vol <- c(90,50,100,40,20)
+pie(x=vol, labels = chem, radius = 1,main = "Pie chart for chemical production", col=c("red","orange","maroon","yellow","black"),clockwise = T)
+```
+ 
+```{r}
+employee <- read.csv("mtcars.csv", TRUE, sep = ",")
+data <- aggregate(mtcars$carb, 
+                  by=list(mtcars$gear), FUN=sum)
+print(data)
+
+pie(data$x, data$Group.1, col = rainbow(length(data$x)))
+```
+
+
+## 2. Bar Plot
+#### Simple Bar Plot
+# Simple Bar Plot
+```{r}
+counts <- table(mtcars$gear)
+barplot(counts, main="Car Distribution",
+   xlab="Number of Gears")
+```
+Horizontal Bar Plot
+```{r}
+counts <- table(mtcars$gear)
+barplot(counts, main="Car Distribution",
+   xlab="Number of Gears")
+```
+Stacked Bar Plot
+```{r}
+# Stacked Bar Plot with Colors and Legend
+counts <- table(mtcars$vs, mtcars$gear)
+barplot(counts, main="Car Distribution by Gears and VS",
+  xlab="Number of Gears", col=c("darkblue","red"),
+  legend = rownames(counts))
+```
+Group Bar Plot
+```{r}
+# Stacked Bar Plot with Colors and Legend
+# Grouped Bar Plot
+counts <- table(mtcars$vs, mtcars$gear)
+barplot(counts, main="Car Distribution by Gears and VS",
+  xlab="Number of Gears", col=c("darkblue","red"),
+  legend = rownames(counts), beside=TRUE)
+```
+
+
