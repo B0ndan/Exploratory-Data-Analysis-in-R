@@ -1,0 +1,212 @@
+---
+title: "Week 4 Material"
+author: "Assistant Lecturer-A (Bondan and Kevin)"
+date: "3/31/2021"
+output: html_document
+---
+
+# Selamat Siang Semuanya
+## Minta Tolong Dipelajari Ya!
+
+### MATERIAL FOR TODAY:
+**Materi R For Today Learning**
+
+- Phi
+
+- Cramer's V
+
+- Stacked & Grouped barplot
+
+- Pearson correlation
+
+---
+_Variable MtCars :_
+
+mpg = Miles/(US) gallon
+
+cyl = Number of cylinders
+
+disp = Displacement (cu.in.)
+
+hp = Gross horsepower
+
+drat = Rear axle ratio
+
+wt = Weight (1000 lbs)
+
+qsec = 1/4 mile time
+
+vs = Engine (0 = V-shaped, 1 = straight)
+
+am = Transmission (0 = automatic, 1 = manual)
+
+gear = Number of forward gears
+
+```{r}
+packages = c('rcompanion', 'vcd', 'psych', 'DescTools', 'epitools')
+lapply(packages, library, character.only = TRUE)
+```
+
+
+## Contoh Memakai Data MTCARS
+```{r}
+data(mtcars)
+head(mtcars)
+```
+```{r}
+mtcars2 <- within(mtcars, {
+   vs <- factor(vs, labels = c("V-shaped", "Straight"))
+   am <- factor(am, labels = c("Automatic", "Manual"))
+   cyl  <- ordered(cyl)
+   gear <- ordered(gear)
+   carb <- ordered(carb)
+})
+head(mtcars2)
+```
+```{r}
+summary(mtcars)
+```
+```{r}
+summary(mtcars2)
+```
+
+
+## Phi 
+## Data PDF Hal. 775
+```{r}
+Input =("
+Opinion      Male Female
+  Agree      75   25
+  Disagree   25   25
+")
+Matrix.2 = as.matrix(read.table(textConnection(Input),
+                                header=TRUE,
+                                row.names=1))
+Matrix.2
+```
+```{r}
+library(psych)
+```
+```{r}
+phi(Matrix.2,
+    digits = 4)
+```
+```{r}
+library(DescTools)
+```
+
+```{r}
+Phi(Matrix.2)
+```
+
+
+## Cramer's $V$
+## Data Buatan Sendiri
+
+```{r}
+Input =("
+County               Pass   Fail
+Bloom                21      5
+Cobblestone           6     11
+Dougal                7      8
+Heimlich             27      5
+")
+
+Matrix = as.matrix(read.table(textConnection(Input),
+                              header=TRUE,
+                              row.names=1))
+
+Matrix
+```
+```{r}
+library(rcompanion)
+```
+```{r}
+cramerV(Matrix,
+        digits=4)
+```
+```{r}
+library(vcd)
+```
+```{r}
+assocstats(Matrix)
+```
+```{r}
+library(DescTools)
+```
+```{r}
+CramerV(Matrix,conf.level=0.95)
+```
+
+
+## Confident Contigency
+```{r}
+assocstats(Matrix)
+```
+
+## Visualisasi
+```{r}
+barplot(Matrix,
+        main = 'The state that conducts the national exam',
+        col=c('#184E77','#1A759F','#d9ed92', '#99d98c'), 
+        border="white", 
+        xlab="Result",
+        ylim = c(0, 70))
+
+legend(x = 2, y = 70, legend = c('County',      
+'Bloom',       
+'Cobblestone', 
+'Dougal',      
+'Heimlich'),
+       col = c('#184E77','#1A759F','#d9ed92', '#99d98c'),
+       bty = 'n',
+       pch = c(19,19,19,19),
+       cex = 0.55,
+       text.col = '#1e6091'
+)
+        
+```
+```{r}
+barplot(Matrix,
+        main = 'The state that conducts the national exam',
+        col=c('#184E77','#1A759F','#d9ed92', '#99d98c'), 
+        border="white", 
+        xlab="Result",
+        beside = T,
+        ylim = c(0, 70))
+
+legend(x = 7, y = 70, legend = c('County',      
+'Bloom',       
+'Cobblestone', 
+'Dougal',      
+'Heimlich'),
+       col = c('#184E77','#1A759F','#d9ed92', '#99d98c'),
+       bty = 1,
+       pch = c(19,19,19,19),
+       cex = 0.6,
+       text.col = '#1e6091'
+)
+```
+
+## Pearson Correlation
+```{r}
+pairs.panels(mtcars2[,c(3:7)], 
+             method = 'pearson', # Metode Korelasi Pearson
+             hist.col = '#34A0A4',
+             density = TRUE,  
+             ellipses = TRUE, # menampilkan elips dari korelasi
+             main = 'Pair plot of disp, hp, drat, wt, qsec')
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
