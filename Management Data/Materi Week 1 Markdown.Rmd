@@ -1,0 +1,136 @@
+---
+title: "Materi Week 1"
+author: "AED-A: Bondan & Kevin"
+date: "3/10/2021"
+output: html_document
+---
+
+## Hello Class AED - A
+### Semoga Berguna Ya.
+
+1. Set Working Directory Manual
+  * setwd() untuk menentukan directory
+  * sesuaikan dengan directory pc/laptop masing-masing
+  * getwd() untuk melihat working directory saat ini
+```{r}
+getwd() # mengetahui script ada dimana
+setwd("C:/Users/bonda/OneDrive/Documents/MATKUL STATISTIK/Asdos AED Materi/Week 1") #mengubah directory file
+```
+
+
+```{r}
+### melihat file isi di directory
+ls()
+```
+
+2. Import File Menggunakan CSV
+
+```{r}
+mtcars1 <- read.csv("C:/Users/bonda/OneDrive/Documents/MATKUL STATISTIK/Asdos AED Materi/Week 1/mtcars.csv")
+mtcars1
+```
+
+3. Read file (csv data)
+```{r}
+df0 <- read.table("mtcars.csv", sep = ",", fill = TRUE, header = TRUE)
+df0
+```
+
+4. Read file [csv data no column.csv]
+```{r}
+df1 = read.table("mtcars.csv")
+head(df1)
+```
+
+5.  Menspesifikan nama kolom, 
+    * jumlah col.names harus sebanyak kolom kalau tidak akan error
+```{r}
+df2 = read.table("mtcars.csv", sep = ",", fill = FALSE, header = TRUE,
+                 col.names=c("CarsModel", "mpg", "Cyl", "disp",
+                             "hp", "drat", "wt", "qsec", 
+                             "vs", "am", "gear",
+                             "carb"))
+df2
+```
+
+6. Export atau Membuat File dengan Dataframe (df2)
+    * export dengan row.names
+    * default argument row.names = TRUE
+```{r}
+write.csv(df2, "CSV Baru Nih with RowNames")
+```
+    * export tanpa rownames
+```{r}
+write.csv(df2, "CSV Baru Nih tanpa RowNames", row.names = FALSE)
+```
+
+7. Export Dataframe ke xlsx
+```{r}
+# install.packages ("writexl)
+library(writexl)
+
+#melihat library yang aktif
+(.packages())
+```
+
+### Matriks
+1. Membuat Matriks cara 1
+```{r}
+M1 = matrix(c(6,3,4,5,7,2),
+            nrow = 2, ncol = 3)
+M1
+```
+2. Memberi Nama Matriks
+```{r}
+M2 = matrix(c(1,2,3,4,5,6),
+            nrow = 2, ncol = 3, 
+            byrow = TRUE,
+            dimnames = list(c("baris1", "baris2"),
+                            c("kolom1", "kolom2", "kolom3")))
+M2
+```
+3. Membuat Matriks Cara ke 2
+```{r}
+M3 <- matrix(c(2,3,-2,1,2,2),3,2)
+M3
+```
+4. Is Something is Matriks
+```{r}
+is.matrix(M3)
+is.vector(M3)
+```
+5. Multiplication By Scalar
+```{r}
+Scalar <- 3
+M4 <- M3*Scalar
+M4
+```
+6. Matrix Addition & Subtraction $ Multiplication
+```{r}
+B <- matrix(c(1,4,-2,1,2,1),3,2)
+B
+
+M5 <- M4 + B
+M5
+M6 <- M5 - B
+M6
+
+```
+7. Transpose
+```{r}
+MTranspose = t(B)
+MTranspose
+```
+8. Inverse and Determinant Of a Matrix
+```{r}
+Contoh1 <- matrix(c(2,1,6,1,3,4,6,4,-2),3,3)
+Contoh1
+
+CI <- solve(Contoh1)
+CI
+
+Determinant1 <- det(Contoh1)
+Determinant1
+```
+
+
