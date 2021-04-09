@@ -1,0 +1,131 @@
+---
+title: "Week 5 Markdown Material"
+author: "Assistant Lecturer - A (Bondan and Kevin)"
+date: "4/7/2021"
+output: html_document
+---
+
+# SIANG SEMUANYA
+## Mohon Untuk Dipelajari.
+
+### MATERIAL FOR TODAY:
+**Materi R For Today Learning**
+
+- Boxplot
+
+- Letter Values Display
+
+## What is Boxplot
+
+A box plot (aka box and whisker plot) uses boxes and lines to depict the distributions of one or more groups of numeric data. Box limits indicate the range of the central 50% of the data, with a central line marking the median value. Lines extend from each box to capture the range of the remaining data, with dots placed past the line edges to indicate outliers.
+
+
+## Boxplots are a handy tool to get a quick overview of the distribution of a dataset. They allow to check:
+
+
+- If and how your data is skewed
+- How your data is grouped
+- How outliers are spread
+
+## Contoh data menggunakan dataset
+_dataset diambil dari kaggle.com menggunakan avocado.csv_
+
+```{r}
+getwd()
+```
+```{r}
+df <- read.csv("avocado.csv")
+```
+
+
+```{r}
+head(df)
+```
+
+
+
+## Contoh Boxplot
+
+```{r}
+head(df$AveragePrice)
+```
+```{r}
+df_urut = as.numeric(sub("min","",df$AveragePrice))
+```
+
+
+```{r}
+boxplot(df_urut, horizontal = T)
+```
+
+
+```{r}
+hist(df_urut, main = "harga alpukat dunia nih")
+```
+
+
+## Letter Values Display (Plot)
+
+The boxplot is a five number summary of a batch of values that gives us a handle on the symmetry (or lack thereof) of the data. The five numbers consist of the median, the inter-quartile values and the upper and lower adjacent values (aka whiskers). The letter value summary was introduced by John Tukey and extends the boxplot’s 5 number summary by exploring the symmetry of the batch for depth levels other than the half (median) or the fourth (quartiles).
+The first box still covers the central 50%, and the second box extends from the first to cover half of the remaining area (75% overall, 12.5% left over on each end). The third box covers another half of the remaining area (87.5% overall, 6.25% left on each end), and so on until the procedure ends and the leftover points are marked as outliers.
+
+_Ringkasnya:_
+
+Boxplot akan mengasumsikan 0.7% data terluar adalah outlier. Jika memiliki data dengan jumlah yang besar sekitar 100.000 baris, maka akan ada  700 outlier yang menumpuk di luar batas whisker yang mungkin saja memiliki sebaran menarik namun tidak nampak di boxplot.
+Lalu kegunaan Letter Values Display adalah untuk melihat sebaran data yang tidak bisa kita lihat hanya menggunakan boxplot.
+
+```
+Sebelum itu jangan lupa install.packages ('lvplot')
+
+```
+
+```{r}
+library(lvplot)
+```
+
+```{r}
+LVboxplot(df_urut, k = 10, xlab = 'Average Prices of Avocade')
+```
+
+## Melihat isi dari LVplot
+
+```{r}
+Isinya = LVboxplot(df_urut, k = 11)
+Isinya
+```
+## Nilai Middle and Spread
+
+> "Spread adalah nilai range untuk depth yang sama (letter value yang sama), sedangkan Middle adalah nilai tengah range untuk depth yang sama."
+>
+> --- Mas2 Asdos
+
+lebih lengkapnya kalian bisa lihat di : https://mgimond.github.io/ES218/Week08b.html
+
+```{r}
+#install.packages('DPQ')
+library(DPQ)
+```
+
+
+```{r}
+source("http://mgimond.github.io/ES218/es218.R")
+lsum(df_urut)
+```
+```{r}
+Baru = LVboxplot(df_urut, k = 12, xlab = 'Harga Alpukat With ABLine')
+abline(v = Baru$letter.val[, 'lower'], col = rainbow(4), lty = 5)
+abline(v = Baru$letter.val[, 'upper'], col = rainbow(4), lty = 5)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
